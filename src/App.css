@@ -1,0 +1,305 @@
+/*reset */
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/*login header*/
+.login-header {
+  width: 100%;
+  height: 100px;
+  background: #cccccc;
+  display: flex;
+  justify-content: space-around;
+}
+
+.login-header-logo {
+  height: 100px;
+  line-height: 100px;
+  font-size: 20px;
+  font-weight: 300;
+}
+
+.login-header-action-wrapper a {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  background: #aaaaaa;
+  line-height: 100px;
+  text-align: center;
+  color: #000;
+}
+
+.login-content-container {
+  width: 80%;
+  margin: 50px auto;
+  display: flex;
+  justify-content: space-around;
+}
+
+.login-card {
+  position: relative;
+  width: 350px;
+  height: 500px;
+  background: #cccccc;
+}
+
+.login-card-header {
+  width: 100%;
+  height: 60px;
+  background: #aaaaaa;
+  display: flex;
+  margin-bottom: 50px;
+}
+
+.login-card-header a {
+  display: inline-block;
+  flex: 1;
+  line-height: 60px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 300;
+  color: black;
+}
+
+.login-card input {
+  display: block;
+  width: 280px;
+  height: 60px;
+  margin: 20px auto;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #aaaaaa;
+  outline: 0;
+  transition: all 0.2s;
+}
+
+.login-card input:focus {
+  border: 1px solid #283593;
+}
+
+.login-btn {
+  display: block;
+  width: 280px;
+  height: 40px;
+  background: #283593;
+  text-align: center;
+  line-height: 40px;
+  color: white;
+  margin: 0 auto;
+}
+
+.login-card-bottom-action {
+  font-size: 14px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: #aaaaaa;
+}
+
+.login-card-bottom-action a {
+  color: cornflowerblue;
+}
+
+.login-page footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  font-size: 14px;
+  color: #333;
+}
+
+/*main page*/
+.main-page {
+  display: flex;
+}
+
+.main-wrapper {
+  flex: 1;
+  background: #eeeeee;
+}
+
+/*side bar*/
+.side-bar {
+  flex: none;
+  width: 200px;
+  height: 900px;
+  background: #2D323E;
+}
+
+.side-logo-wrapper {
+  width: 100%;
+  height: 64px;
+  background: #333333;
+}
+
+.side-subhead {
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  color: #aaaaaa;
+  padding-left: 30px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.side-menu-item {
+  width: 100%;
+  height: 48px;
+  line-height: 48px;
+  padding-left: 30px;
+  font-size: 14px;
+  color: #cccccc;
+  transition: all 0.3s;
+}
+
+.side-menu-item:hover {
+  cursor: pointer;
+  background: #424A5C;
+  padding-left: 40px;
+}
+.side-menu-item i {
+  margin-right: 15px;
+}
+
+/*top bar*/
+.top-bar {
+  width: 100%;
+  height: 64px;
+  background: #aaaaaa;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.top-bar-btn {
+  width: 64px;
+  text-align: center;
+  line-height: 64px;
+  color: #eeeeee;
+  background: #777;
+}
+
+.top-bar-user-info {
+  width: 150px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+.user-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background: #777;
+  margin-right: 15px;
+}
+
+.top-bar-user-name {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+/*news page*/
+
+.news-page {
+  width: 100%;
+  display: flex;
+}
+
+.sub-side-bar {
+  flex: none;
+  width: 200px;
+  height: 800px;
+  background: #EAEDF1;
+}
+
+.sub-side-headline {
+  margin: 0;
+  padding-left: 30px;
+  width: 100%;
+  height: 64px;
+  line-height: 64px;
+  background: #999;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.sub-side-bar-menu-item {
+  display: block;
+  width: 100%;
+  height: 48px;
+  line-height: 48px;
+  padding-left: 30px;
+  font-size: 12px;
+  color: #000000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
