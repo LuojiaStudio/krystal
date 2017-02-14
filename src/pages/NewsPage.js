@@ -2,25 +2,19 @@
  * Created by Jsceoz on 2017/2/11.
  */
 import React from 'react';
+import CreateNews from './CreateNewsPage';
+import PublishedNewsPage from './PublishedNewsPage';
+import SubSideBar from '../components/SubSideBar';
 
 class NewsPage extends React.Component {
     render() {
         return (
             <main className="news-page">
-                <div className="sub-side-bar">
-                    <h3 className="sub-side-headline">新闻管理</h3>
-                    <a href="#" className="sub-side-bar-menu-item">
-                        已发表文章
-                    </a>
-                    <a href="#" className="sub-side-bar-menu-item">
-                        待审核文章
-                    </a>
-                    <a href="#" className="sub-side-bar-menu-item">
-                        新建文章
-                    </a>
-                </div>
+                <SubSideBar
+                    headline="新闻管理"
+                />
                 <div className="page-content">
-                    sdas
+                    <PublishedNewsPage/>
                 </div>
             </main>
         )

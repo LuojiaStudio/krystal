@@ -1,7 +1,9 @@
 /*reset */
-body, html {
+body, html, #root, .App {
   margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%;
 }
 
 a {
@@ -123,18 +125,22 @@ a {
 /*main page*/
 .main-page {
   display: flex;
+  width: 100%;
+  height: 100%;
 }
 
 .main-wrapper {
+  position: relative;
   flex: 1;
   background: #eeeeee;
+  height: 100%;
 }
 
 /*side bar*/
 .side-bar {
   flex: none;
   width: 200px;
-  height: 900px;
+  height: 100%;
   background: #2D323E;
 }
 
@@ -213,14 +219,18 @@ a {
 /*news page*/
 
 .news-page {
+  position: absolute;
   width: 100%;
+  top: 64px;
+  bottom: 0;
+  left: 0;
   display: flex;
+  background: #fff;
 }
 
 .sub-side-bar {
   flex: none;
   width: 200px;
-  height: 800px;
   background: #EAEDF1;
 }
 
@@ -232,7 +242,8 @@ a {
   line-height: 64px;
   background: #999;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 600;
+  color: #666;
 }
 
 .sub-side-bar-menu-item {
@@ -245,11 +256,134 @@ a {
   color: #000000;
 }
 
+.sub-side-bar-menu-item:hover {
+  background: #eee;
+}
 
 
+/*create news page*/
+.page-content {
+  width: 100%;
+  padding-left: 50px;
+}
+
+.main-page-headline {
+  margin: 0 0 20px 0;
+  height: 64px;
+  line-height: 64px;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 600;
+  color: #666666;
+}
+
+.tag-select {
+  height: 180px;
+}
 
 
+/*form*/
+.form-item {
+  margin-bottom: 24px;
+  display: flex;
+  align-items: flex-start;
+}
 
+.form-item-note {
+  height: 32px;
+  line-height: 32px;
+  font-size: 12px;
+  color:  #999;
+  padding-left: 10px;
+}
+
+label {
+  text-align: right;
+  width: 60px;
+  padding-right: 3px;
+  height: 32px;
+  font-size: 12px;
+  color: #666;
+  line-height: 32px;
+}
+
+input[type=text] {
+  height: 32px;
+  border: 1px solid #d9d9d9;
+  outline: 0;
+  border-radius: 5px;
+  padding: 6px 7px;
+  font-size: 12px;
+  color: #666;
+  line-height: 18px;
+  transition: all 0.3s;
+}
+
+input[type=text]:focus {
+  border: 1px solid #3F51B5;
+  box-shadow: 0 0 5px #5C6BC0;
+}
+
+input[type=text]:hover {
+  border: 1px solid #3F51B5;
+}
+
+.submit-btn {
+  outline: 0;
+  border: 0;
+  width: 68px;
+  height: 28px;
+  line-height: 28px;
+  background: #3F51B5;
+  border-radius: 14px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background: #5C6BC0;
+}
+
+textarea {
+  width: 801px;
+  height: 300px;
+}
+
+/*table*/
+table {
+  border-spacing: 0;
+}
+td, th {
+  padding: 0 10px;
+  max-width: 500px;
+  height: 50px;
+  line-height: 50px;
+}
+
+th {
+  background: #F3F3F3;
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+}
+
+td {
+  font-size: 12px;
+  font-weight: 400;
+  color: #666;
+  border-bottom: 1px solid #E9E9E9;
+}
+
+.table-action-btn {
+  font-size: 12px;
+  color: #3F51B5;
+  margin-right: 5px;
+}
+
+.table-action-btn:hover {
+  color: #5C6BC0;
+
+}
 
 
 
