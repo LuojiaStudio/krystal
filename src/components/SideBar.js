@@ -8,12 +8,12 @@ class SideBar extends React.Component {
         return (
             <div className="side-bar">
                 <div className="side-logo-wrapper">
-                    iWHUSU
+                    WHUSUOA
                 </div>
                 <h4 className="side-subhead">工作</h4>
-                <div className="side-menu-item">
+                <a href="#/news" className="side-menu-item">
                     <i className="fa fa-cube"></i>应用
-                </div>
+                </a>
                 <div className="side-menu-item">
                     <i className="fa fa-calendar" aria-hidden="true"></i>日历
                 </div>

@@ -2,7 +2,9 @@
  * Created by Jsceoz on 2017/2/11.
  */
 import React from 'react';
-import CreateNews from './CreateNewsPage';
+import { Router, Route, hashHistory } from 'react-router';
+import CreateNewsPage from './CreateNewsPage';
+import PendingNewsPage from './PendingNewsPage';
 import PublishedNewsPage from './PublishedNewsPage';
 import SubSideBar from '../components/SubSideBar';
 
@@ -14,7 +16,11 @@ class NewsPage extends React.Component {
                     headline="新闻管理"
                 />
                 <div className="page-content">
-                    <PublishedNewsPage/>
+                    <Router history={hashHistory}>
+                        <Route path="/news/published-news-page" component={PublishedNewsPage}/>
+                        <Route path="/news/pending-news-page" component={PendingNewsPage}/>
+                        <Route path="/news/create-news-page" component={CreateNewsPage}/>
+                    </Router>
                 </div>
             </main>
         )

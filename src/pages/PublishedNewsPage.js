@@ -4,6 +4,30 @@
 import React from 'react';
 
 class PublishedNewsPage extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            news_arr: []
+        }
+    }
+
+    componentWillMount() {
+        this.getPublishedNews();
+    }
+
+    getPublishedNews() {
+        let self = this;
+        fetch("http://127.0.0.1:8000/news/article/").then(function (response) {
+           response.json().then(function (data) {
+               console.log(data.results);
+               self.setState({
+                   news_arr: data.results
+               })
+           })
+        })
+    }
+
+
     render() {
         return (
             <main className="published-news-page">
@@ -18,30 +42,22 @@ class PublishedNewsPage extends React.Component {
                         <th>发布日期</th>
                         <th>操作</th>
                     </tr>
-                    <tr>
-                        <td>56465</td>
-                        <td>新闻标题新闻标题新闻标题</td>
-                        <td>小明</td>
-                        <td>小明</td>
-                        <td>校园/计算机学院</td>
-                        <td>2017-11-16</td>
-                        <td>
-                            <a href="#" className="table-action-btn">编辑</a>
-                            <a href="#" className="table-action-btn">删除</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>56465</td>
-                        <td>新闻标题新闻标题新闻标题新闻标题新闻标题新闻标题新闻标题新闻标题新闻标题</td>
-                        <td>小明</td>
-                        <td>小明</td>
-                        <td>校园/计算机学院</td>
-                        <td>2017-11-16</td>
-                        <td>
-                            <a href="#" className="table-action-btn">编辑</a>
-                            <a href="#" className="table-action-btn">删除</a>
-                        </td>
-                    </tr>
+                    {
+                        this.state.news_arr.map(news => (
+                            <tr>
+                                <td>{news.id}</td>
+                                <td>{news.title}</td>
+                                <td>{news.author}</td>
+                                <td>{news.photographer}</td>
+                                <td>{news.tags}</td>
+                                <td>{news.create_time}</td>
+                                <td>
+                                    <a href="#" className="table-action-btn">编辑</a>
+                                    <a href="#" className="table-action-btn">删除</a>
+                                </td>
+                            </tr>
+                        ))
+                    }
                 </table>
             </main>
         )

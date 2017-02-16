@@ -2,6 +2,7 @@
  * Created by Jsceoz on 2017/2/11.
  */
 import React from 'react';
+import { Router, Route, hashHistory } from 'react-router';
 import SideBar from '../components/SideBar';
 import TopBar from '../components/TopBar';
 import NewsPage from './NewsPage';
@@ -13,7 +14,9 @@ class MainPage extends React.Component {
                 <SideBar/>
                 <main className="main-wrapper">
                     <TopBar/>
-                    <NewsPage/>
+                    <Router history={hashHistory}>
+                        <Route path="/news" component={NewsPage}/>
+                    </Router>
                 </main>
             </div>
         )
