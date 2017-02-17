@@ -3,6 +3,8 @@
  */
 import React from 'react';
 
+var $ = window.$;
+
 class PublishedNewsPage extends React.Component {
     constructor(props) {
         super(props);

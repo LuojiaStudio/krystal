@@ -7,26 +7,54 @@ class CreateNewsPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: [],
-            tags: []
+            title: '',
+            selected_tags: [],
+            author: '',
+            photographer: '',
+            content: '',
+            tags_list: []
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
+        this.handleEditorContentChange = this.handleEditorContentChange.bind(this)
     }
 
     componentDidMount() {
-        var editor = new window.wangEditor('editor');
+        let editor = new window.wangEditor('js_editor');
         editor.config.uploadImgUrl = 'http://127.0.0.1:8000/file/up/';
-        editor.create()
+        editor.create();
+
+        window.editor = editor;
+        this.getTagsList();
+    }
+
+    getTagsList() {
+        let self = this;
+        fetch("http://127.0.0.1:8000/news/tag/").then(function (response) {
+            response.json().then(function (data) {
+                self.setState({
+                    tags_list: data.results
+                })
+            })
+        })
     }
 
     handleChange(event) {
-        console.log(arguments);
-        // let obj = {};
-        // obj[name] = 'dasdas';
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
         this.setState({
-            title: event.target.value
+            [name]: value
+        })
+    }
+
+    handleEditorContentChange() {
+        console.log(window.editor.$txt.html());
+        let content = window.editor.$txt.html();
+        this.setState({
+            content: content
         })
     }
 
@@ -48,39 +76,68 @@ class CreateNewsPage extends React.Component {
         return (
             <main className="new-news-page">
                 <h2 className="main-page-headline">新建文章</h2>
-                <form action="/">
+                <form>
                     <div className="form-item">
                         <label htmlFor="">标题：</label>
-                        <input type="text" className="main-input" onChange={this.handleChange} value={this.state.title}/>
+                        <input
+                            id="for_title"
+                            name="title"
+                            type="text"
+                            className="main-input"
+                            onChange={this.handleChange}
+                            value={this.state.title}/>
                         <span className="form-item-note">输入标题输入标题</span>
-                    </div>
-                    <div className="form-item">
-                        <label htmlFor="">副标题：</label>
-                        <input type="text" className="main-input"/>
                     </div>
                     <div className="form-item">
                         <label htmlFor="">作者：</label>
-                        <input type="text" className="main-input"/>
+                        <input
+                            id="for_author"
+                            name="author"
+                            type="text"
+                            className="main-input"
+                            onChange={this.handleChange}
+                            value={this.state.author}
+                        />
+                    </div>
+                    <div className="form-item">
+                        <label htmlFor="">摄影记者：</label>
+                        <input
+                            id="for_photographer"
+                            name="photographer"
+                            type="text"
+                            className="main-input"
+                            onChange={this.handleChange}
+                            value={this.state.photographer}
+                        />
                     </div>
                     <div className="form-item">
                         <label htmlFor="">正文：</label>
-                        <textarea name="" id="editor" cols="30" rows="10"></textarea>
+                        <div
+                            id="js_editor"
+                            contentEditable="true"
+                        >
+                        </div>
                     </div>
                     <div className="form-item">
                         <label htmlFor="">标签：</label>
-                        <select name="tags[]" multiple className="tag-select" onChange={this.handleSelect}>
-                            <option value='php'>php 教程</option>
-                            <option value='java' selected>java 教程</option>
-                            <option value='mysl'>mysql 教程</option>
-                            <option value='js'>js 教程</option>
-                            <option value='html'>html 教程</option>
+                        <select
+                            name="tags[]"
+                            multiple
+                            className="tag-select"
+                            onChange={this.handleSelect}
+                        >
+                            {
+                                this.state.tags_list.map(tag => (
+                                    <option value={tag.id}>{tag.name}</option>
+                                ))
+                            }
                         </select>
                         <span className="form-item-note">输入标题输入标题</span>
                     </div>
-                    <div className="form-item">
-                        <input type="submit" className="submit-btn" value="确 定" />
-                    </div>
                 </form>
+                <div className="form-item">
+                    <button className="submit-btn" value="确 定" onClick={this.handleEditorContentChange}/>
+                </div>
             </main>
         )
     }
