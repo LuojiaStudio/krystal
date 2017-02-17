@@ -4,6 +4,8 @@ import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
 import './App.css';
 
+window.the_url = 'http://127.0.0.1:8000/';
+
 class App extends Component {
   render() {
     return (

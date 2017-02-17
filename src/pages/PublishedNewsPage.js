@@ -14,6 +14,7 @@ class PublishedNewsPage extends React.Component {
     }
 
     componentWillMount() {
+        this.getTags();
         this.getPublishedNews();
     }
 
@@ -26,6 +27,21 @@ class PublishedNewsPage extends React.Component {
                    news_arr: data.results
                })
            })
+        })
+    }
+
+    getTags() {
+        let self = this;
+        fetch(window.the_url +"news/tag/").then(function (response) {
+            response.json().then(function (data) {
+                let tag_list = [];
+                for (let i = 0; i < data.results.length; i++) {
+                    tag_list[data.results[i].id] = data.results[i].name;
+                }
+                self.setState({
+                    tags_list: tag_list
+                })
+            })
         })
     }
 
@@ -51,7 +67,9 @@ class PublishedNewsPage extends React.Component {
                                 <td>{news.title}</td>
                                 <td>{news.author}</td>
                                 <td>{news.photographer}</td>
-                                <td>{news.tags}</td>
+                                <td>{news.tags.map(tag_id => (
+                                    this.state.tags_list[tag_id] + '/'
+                                ))}</td>
                                 <td>{news.create_time}</td>
                                 <td>
                                     <a href="#" className="table-action-btn">编辑</a>
