@@ -330,6 +330,14 @@ input[type=text]:hover {
   border: 1px solid #3F51B5;
 }
 
+.editor-wrapper {
+  width: 800px;
+}
+
+.editor {
+  height: 500px;
+}
+
 .submit-btn {
   outline: 0;
   border: 0;

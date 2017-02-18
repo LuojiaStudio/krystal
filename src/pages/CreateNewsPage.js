@@ -17,9 +17,10 @@ class CreateNewsPage extends React.Component {
         };
 
         this.handleChange = this.handleChange.bind(this);
-        this.handleSelect = this.handleSelect.bind(this);
+        this.handleTagSelect = this.handleTagSelect.bind(this);
         this.handleEditorContentChange = this.handleEditorContentChange.bind(this);
-        this.createNewArticle = this.createNewArticle.bind(this)
+        this.createNewArticle = this.createNewArticle.bind(this);
+        this.handleCoverImageUpload = this.handleCoverImageUpload.bind(this)
     }
 
     componentDidMount() {
@@ -52,6 +53,10 @@ class CreateNewsPage extends React.Component {
         })
     }
 
+    handleCoverImageUpload() {
+        console.log(document.getElementById('for_cover').files[0])
+    }
+
     handleEditorContentChange() {
         let content = window.editor.$txt.html();
         this.setState({
@@ -59,7 +64,7 @@ class CreateNewsPage extends React.Component {
         })
     }
 
-    handleSelect(event) {
+    handleTagSelect(event) {
         let options = event.target.options;
         let value = [];
         for (let  i = 0; i < options.length; i++) {
@@ -117,6 +122,15 @@ class CreateNewsPage extends React.Component {
                         <span className="form-item-note">输入标题输入标题</span>
                     </div>
                     <div className="form-item">
+                        <label htmlFor="for_cover">封面图片：</label>
+                        <input
+                            id="for_cover"
+                            name="cover"
+                            type="file"
+                            onChange={this.handleCoverImageUpload}
+                        />
+                    </div>
+                    <div className="form-item">
                         <label htmlFor="for_author">作者：</label>
                         <input
                             id="for_author"
@@ -140,10 +154,13 @@ class CreateNewsPage extends React.Component {
                     </div>
                     <div className="form-item">
                         <label htmlFor="js_editor">正文：</label>
-                        <div
-                            id="js_editor"
-                            contentEditable="true"
-                        >
+                        <div className="editor-wrapper">
+                            <div
+                                id="js_editor"
+                                contentEditable="true"
+                                className="editor"
+                            >
+                            </div>
                         </div>
                     </div>
                     <div className="form-item">
@@ -153,7 +170,7 @@ class CreateNewsPage extends React.Component {
                             name="tags[]"
                             multiple
                             className="tag-select"
-                            onChange={this.handleSelect}
+                            onChange={this.handleTagSelect}
                         >
                             {
                                 this.state.tags_list.map(tag => (
