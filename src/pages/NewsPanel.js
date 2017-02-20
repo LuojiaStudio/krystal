@@ -3,10 +3,11 @@
  */
 import React from 'react';
 
-class CreateNewsPage extends React.Component {
+class NewsPanel extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            is_editing: false,
             title: '',
             tags: [],
             author: '',
@@ -20,8 +21,11 @@ class CreateNewsPage extends React.Component {
         this.handleTagSelect = this.handleTagSelect.bind(this);
         this.handleEditorContentChange = this.handleEditorContentChange.bind(this);
         this.createNewArticle = this.createNewArticle.bind(this);
-        this.handleCoverImageUpload = this.handleCoverImageUpload.bind(this)
+        this.handleCoverImageUpload = this.handleCoverImageUpload.bind(this);
+        this.setNewsInitialData = this.setNewsInitialData.bind(this);
+        this.setNewsInitialTags = this.setNewsInitialTags.bind(this)
     }
+
 
     componentDidMount() {
         let editor = new window.wangEditor('js_editor');
@@ -30,6 +34,33 @@ class CreateNewsPage extends React.Component {
 
         window.editor = editor;
         this.getTagsList();
+        this.setNewsInitialData();
+        this.setNewsInitialTags();
+    }
+
+    setNewsInitialData() {
+        let self = this;
+        if (this.props.params.id) {
+            fetch(window.the_url +"news/article/" + this.props.params.id + "/").then(function (response) {
+                response.json().then(function (data) {
+                    console.log(data);
+                    self.setState({
+                        author: data.author,
+                        title: data.title,
+                        cover: data.cover,
+                        photographer: data.photographer,
+                        content: data.content,
+                        tags: data.tags,
+                        is_editing: true
+                    });
+                    window.editor.$txt.html(self.state.content)
+                })
+            })
+        }
+    }
+
+    setNewsInitialTags() {
+        //TODO：
     }
 
     getTagsList() {
@@ -54,7 +85,20 @@ class CreateNewsPage extends React.Component {
     }
 
     handleCoverImageUpload() {
-        console.log(document.getElementById('for_cover').files[0])
+        console.log(document.getElementById('for_cover').files[0]);
+
+        let formData = new FormData();
+        let file = document.getElementById('for_cover').files[0];
+        formData.append('wangEditorH5File', file, file.name);
+
+        fetch("http://127.0.0.1:8000/file/up/", {
+            method: "POST",
+            body: formData
+        }).then(function (response) {
+            response.text().then(function (data) {
+                console.log(data)
+            })
+        })
     }
 
     handleEditorContentChange() {
@@ -87,14 +131,22 @@ class CreateNewsPage extends React.Component {
             title: self.state.title,
             author: self.state.author,
             cover: self.state.cover,
-            tags: ['校园', '评论'],
+            tags: self.state.tags,
             content: window.editor.$txt.html(),
             is_checked: true
         };
-        // let data = new FormData();
-        // data.append("json", JSON.stringify(article_paylaod));
-        fetch(window.the_url + "news/article/", {
-            method: "POST",
+        let url = '';
+        let method = '';
+        if (this.state.is_editing) {
+            url = window.the_url + "news/article/" + this.props.params.id + "/";
+            method = "PUT"
+        }
+        else {
+            url = window.the_url + "news/article/";
+            method = "POST"
+        }
+        fetch(url, {
+            method: method,
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -129,6 +181,7 @@ class CreateNewsPage extends React.Component {
                             type="file"
                             onChange={this.handleCoverImageUpload}
                         />
+                        <img src={this.state.cover} alt={this.state.title}/>
                     </div>
                     <div className="form-item">
                         <label htmlFor="for_author">作者：</label>
@@ -174,12 +227,13 @@ class CreateNewsPage extends React.Component {
                         >
                             {
                                 this.state.tags_list.map(tag => (
-                                    <option value={tag.id}>{tag.name}</option>
+                                    <option className="tag-option" value={tag.id}>{tag.name}</option>
                                 ))
                             }
                         </select>
                         <span className="form-item-note">输入标题输入标题</span>
                     </div>
+
                 </form>
                 <div className="form-item">
                     <button className="submit-btn" value="确 定" onClick={this.createNewArticle}>确定</button>
@@ -189,4 +243,4 @@ class CreateNewsPage extends React.Component {
     }
 }
 
-export default CreateNewsPage;
+export default NewsPanel;

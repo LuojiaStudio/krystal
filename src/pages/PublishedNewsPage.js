@@ -9,8 +9,14 @@ class PublishedNewsPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            news_arr: []
-        }
+            news_arr: [],
+            next_page: '',
+            previous_page: ''
+        };
+
+        this.getNextPage = this.getNextPage.bind(this);
+        this.getPreviousPge = this.getPreviousPge.bind(this);
+        this.handleDelete = this.handleDelete.bind(this)
     }
 
     componentWillMount() {
@@ -22,9 +28,10 @@ class PublishedNewsPage extends React.Component {
         let self = this;
         fetch("http://127.0.0.1:8000/news/article/").then(function (response) {
            response.json().then(function (data) {
-               console.log(data.results);
                self.setState({
-                   news_arr: data.results
+                   news_arr: data.results,
+                   previous_page: data.previous,
+                   next_page: data.next
                })
            })
         })
@@ -42,6 +49,44 @@ class PublishedNewsPage extends React.Component {
                     tags_list: tag_list
                 })
             })
+        })
+    }
+
+    getPreviousPge() {
+        let self = this;
+        fetch(this.state.previous_page).then(function (response) {
+            response.json().then(function (data) {
+                self.setState({
+                    news_arr: data.results,
+                    previous_page: data.previous,
+                    next_page: data.next
+                })
+            })
+        })
+    }
+
+    getNextPage() {
+        let self = this;
+        fetch(this.state.next_page).then(function (response) {
+            response.json().then(function (data) {
+                self.setState({
+                    news_arr: data.results,
+                    previous_page: data.previous,
+                    next_page: data.next
+                })
+            })
+        })
+    }
+
+    handleDelete(e) {
+        let self = this;
+        fetch( window.the_url + "news/article/" + e.target.dataset.id + "/", {
+            method: "DELETE",
+        }).then(function (response) {
+            console.log(response.status);
+            if (response.status === 204) {
+                self.getPublishedNews()
+            }
         })
     }
 
@@ -72,13 +117,15 @@ class PublishedNewsPage extends React.Component {
                                 ))}</td>
                                 <td>{news.create_time}</td>
                                 <td>
-                                    <a href="#" className="table-action-btn">编辑</a>
-                                    <a href="#" className="table-action-btn">删除</a>
+                                    <a href={"#/news/edit-news/" + news.id} className="table-action-btn">编辑</a>
+                                    <a onClick={this.handleDelete} data-id={news.id} className="table-action-btn">删除</a>
                                 </td>
                             </tr>
                         ))
                     }
                 </table>
+                <div className="btn" onClick={this.getPreviousPge}>上一页</div>
+                <div className="btn" onClick={this.getNextPage}>下一页</div>
             </main>
         )
     }

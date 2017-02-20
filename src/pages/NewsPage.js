@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { Router, Route, hashHistory } from 'react-router';
-import CreateNewsPage from './CreateNewsPage';
+import CreateNewsPage from './NewsPanel';
 import PendingNewsPage from './PendingNewsPage';
 import PublishedNewsPage from './PublishedNewsPage';
 import SubSideBar from '../components/SubSideBar';
@@ -20,6 +20,7 @@ class NewsPage extends React.Component {
                         <Route path="/news/published-news-page" component={PublishedNewsPage}/>
                         <Route path="/news/pending-news-page" component={PendingNewsPage}/>
                         <Route path="/news/create-news-page" component={CreateNewsPage}/>
+                        <Route path="/news/edit-news/:id" component={CreateNewsPage}/>
                     </Router>
                 </div>
             </main>
