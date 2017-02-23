@@ -2,8 +2,7 @@
  * Created by Jsceoz on 2017/2/14.
  */
 import React from 'react';
-
-var $ = window.$;
+import Loading from '../components/Loading';
 
 class PublishedNewsPage extends React.Component {
     constructor(props) {
@@ -11,12 +10,14 @@ class PublishedNewsPage extends React.Component {
         this.state = {
             news_arr: [],
             next_page: '',
-            previous_page: ''
+            previous_page: '',
+            loading: false
         };
 
         this.getNextPage = this.getNextPage.bind(this);
         this.getPreviousPge = this.getPreviousPge.bind(this);
-        this.handleDelete = this.handleDelete.bind(this)
+        this.handleDelete = this.handleDelete.bind(this);
+        this.loading = this.loading.bind(this)
     }
 
     componentWillMount() {
@@ -25,13 +26,15 @@ class PublishedNewsPage extends React.Component {
     }
 
     getPublishedNews() {
+        this.loading();
         let self = this;
         fetch("http://127.0.0.1:8000/news/article/").then(function (response) {
            response.json().then(function (data) {
                self.setState({
                    news_arr: data.results,
                    previous_page: data.previous,
-                   next_page: data.next
+                   next_page: data.next,
+                   loading: false
                })
            })
         })
@@ -46,33 +49,37 @@ class PublishedNewsPage extends React.Component {
                     tag_list[data.results[i].id] = data.results[i].name;
                 }
                 self.setState({
-                    tags_list: tag_list
+                    tags_list: tag_list,
                 })
             })
         })
     }
 
     getPreviousPge() {
+        this.loading();
         let self = this;
         fetch(this.state.previous_page).then(function (response) {
             response.json().then(function (data) {
                 self.setState({
                     news_arr: data.results,
                     previous_page: data.previous,
-                    next_page: data.next
+                    next_page: data.next,
+                    loading: false
                 })
             })
         })
     }
 
     getNextPage() {
+        this.loading();
         let self = this;
         fetch(this.state.next_page).then(function (response) {
             response.json().then(function (data) {
                 self.setState({
                     news_arr: data.results,
                     previous_page: data.previous,
-                    next_page: data.next
+                    next_page: data.next,
+                    loading: false
                 })
             })
         })
@@ -87,6 +94,12 @@ class PublishedNewsPage extends React.Component {
             if (response.status === 204) {
                 self.getPublishedNews()
             }
+        })
+    }
+
+    loading() {
+        this.setState({
+            loading: true
         })
     }
 
@@ -124,8 +137,9 @@ class PublishedNewsPage extends React.Component {
                         ))
                     }
                 </table>
-                <div className="btn" onClick={this.getPreviousPge}>上一页</div>
-                <div className="btn" onClick={this.getNextPage}>下一页</div>
+                <button className="btn" onClick={this.getPreviousPge}>上一页</button>
+                <button className="btn" onClick={this.getNextPage}>下一页</button>
+                <Loading open={this.state.loading}/>
             </main>
         )
     }

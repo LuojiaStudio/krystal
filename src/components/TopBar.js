@@ -14,7 +14,7 @@ class TopBar extends React.Component {
                     <div className="user-logo">
 
                     </div>
-                    <h4 className="top-bar-user-name">柳森</h4>
+                    <h4 className="top-bar-user-name">{this.props.username}</h4>
                 </div>
             </header>
         )

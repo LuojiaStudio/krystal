@@ -13,14 +13,14 @@ class NewsPanel extends React.Component {
             author: '',
             photographer: '',
             content: '',
-            cover: 'dasd',
+            cover: '',
             tags_list: []
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleTagSelect = this.handleTagSelect.bind(this);
         this.handleEditorContentChange = this.handleEditorContentChange.bind(this);
-        this.createNewArticle = this.createNewArticle.bind(this);
+        this.postArticle = this.postArticle.bind(this);
         this.handleCoverImageUpload = this.handleCoverImageUpload.bind(this);
         this.setNewsInitialData = this.setNewsInitialData.bind(this);
         this.setNewsInitialTags = this.setNewsInitialTags.bind(this)
@@ -36,6 +36,7 @@ class NewsPanel extends React.Component {
         this.getTagsList();
         this.setNewsInitialData();
         this.setNewsInitialTags();
+        console.log(localStorage.token);
     }
 
     setNewsInitialData() {
@@ -51,7 +52,7 @@ class NewsPanel extends React.Component {
                         photographer: data.photographer,
                         content: data.content,
                         tags: data.tags,
-                        is_editing: true
+                        is_editing: true,
                     });
                     window.editor.$txt.html(self.state.content)
                 })
@@ -60,7 +61,15 @@ class NewsPanel extends React.Component {
     }
 
     setNewsInitialTags() {
-        //TODO：
+
+        let options = document.getElementsByClassName("tag-option");
+        console.log(options);
+        for (let option in options) {
+            if (this.state.tags.indexOf(option.value) != -1) {
+                console.log(option);
+                option.selected = true
+            }
+        }
     }
 
     getTagsList() {
@@ -72,6 +81,7 @@ class NewsPanel extends React.Component {
                 })
             })
         })
+
     }
 
     handleChange(event) {
@@ -86,7 +96,7 @@ class NewsPanel extends React.Component {
 
     handleCoverImageUpload() {
         console.log(document.getElementById('for_cover').files[0]);
-
+        let self = this;
         let formData = new FormData();
         let file = document.getElementById('for_cover').files[0];
         formData.append('wangEditorH5File', file, file.name);
@@ -96,7 +106,10 @@ class NewsPanel extends React.Component {
             body: formData
         }).then(function (response) {
             response.text().then(function (data) {
-                console.log(data)
+                console.log(data);
+                self.setState({
+                    cover: data
+                })
             })
         })
     }
@@ -121,7 +134,7 @@ class NewsPanel extends React.Component {
         }
     }
 
-    createNewArticle() {
+    postArticle() {
         let content = window.editor.$txt.html();
         this.setState({
             content: content
@@ -130,6 +143,7 @@ class NewsPanel extends React.Component {
         let article_payload = {
             title: self.state.title,
             author: self.state.author,
+            photographer: self.state.photographer,
             cover: self.state.cover,
             tags: self.state.tags,
             content: window.editor.$txt.html(),
@@ -181,7 +195,7 @@ class NewsPanel extends React.Component {
                             type="file"
                             onChange={this.handleCoverImageUpload}
                         />
-                        <img src={this.state.cover} alt={this.state.title}/>
+                        <img src={this.state.cover} alt={this.state.title} className="cover-img"/>
                     </div>
                     <div className="form-item">
                         <label htmlFor="for_author">作者：</label>
@@ -227,7 +241,7 @@ class NewsPanel extends React.Component {
                         >
                             {
                                 this.state.tags_list.map(tag => (
-                                    <option className="tag-option" value={tag.id}>{tag.name}</option>
+                                    <option className="tag-option" value={tag.id} selected={this.state.tags.indexOf(tag.id) != -1 }>{tag.name}</option>
                                 ))
                             }
                         </select>
@@ -236,7 +250,7 @@ class NewsPanel extends React.Component {
 
                 </form>
                 <div className="form-item">
-                    <button className="submit-btn" value="确 定" onClick={this.createNewArticle}>确定</button>
+                    <button className="submit-btn" value="确 定" onClick={this.postArticle}>发布</button>
                 </div>
             </main>
         )

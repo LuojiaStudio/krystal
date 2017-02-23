@@ -6,18 +6,12 @@ import React from 'react';
 class SubSideBar extends React.Component {
     render() {
         return (
-            <div className="sub-side-bar">
+            <aside className="sub-side-bar">
                 <h3 className="sub-side-headline">{this.props.headline}</h3>
-                <a href="#/news/published-news-page" className="sub-side-bar-menu-item">
-                    已发表文章
-                </a>
-                <a href="#/news/pending-news-page" className="sub-side-bar-menu-item">
-                    待审核文章
-                </a>
-                <a href="#/news/create-news-page" className="sub-side-bar-menu-item">
-                    新建文章
-                </a>
-            </div>
+                <nav>
+                    {this.props.children}
+                </nav>
+            </aside>
         )
     }
 }

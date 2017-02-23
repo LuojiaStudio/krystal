@@ -11,10 +11,20 @@ import SubSideBar from '../components/SubSideBar';
 class NewsPage extends React.Component {
     render() {
         return (
-            <main className="news-page">
+            <main className="page-wrapper">
                 <SubSideBar
                     headline="新闻管理"
-                />
+                >
+                    <a href="#/news/published-news-page" className="sub-side-bar-menu-item">
+                        已发表文章
+                    </a>
+                    <a href="#/news/pending-news-page" className="sub-side-bar-menu-item">
+                        待审核文章
+                    </a>
+                    <a href="#/news/create-news-page" className="sub-side-bar-menu-item">
+                        新建文章
+                    </a>
+                </SubSideBar>
                 <div className="page-content">
                     <Router history={hashHistory}>
                         <Route path="/news/published-news-page" component={PublishedNewsPage}/>
