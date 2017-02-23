@@ -25,22 +25,19 @@ class SideBar extends React.Component {
                         <i className="fa fa-cube"/>应用
                     </a>
                     <a href="#/" className="side-menu-item ban">
-                        <i className="fa fa-calendar"/>日历
+                        <i className="fa fa-calendar"/>日历（开发中）
                     </a>
                     <a href="#/" className="side-menu-item ban">
-                        <i className="fa fa-envelope"/>邮件
+                        <i className="fa fa-comments"/>交流（开发中）
                     </a>
                     <a href="#/" className="side-menu-item ban">
-                        <i className="fa fa-comments"/>聊天
+                        <i className="fa fa-file"/>文件（开发中）
                     </a>
                     <a href="#/" className="side-menu-item ban">
-                        <i className="fa fa-file"/>文件
+                        <i className="fa fa-user"/>联系人（开发中）
                     </a>
                     <a href="#/" className="side-menu-item ban">
-                        <i className="fa fa-user"/>联系人
-                    </a>
-                    <a href="#/" className="side-menu-item ban">
-                        <i className="fa fa-sticky-note"/>备忘录
+                        <i className="fa fa-sticky-note"/>备忘录（开发中）
                     </a>
                     <h4 className="side-subhead">设置</h4>
                     <a href="#/setting" className="side-menu-item">

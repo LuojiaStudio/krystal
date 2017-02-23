@@ -12,7 +12,7 @@ class TopBar extends React.Component {
                 </a>
                 <div className="top-bar-user-info">
                     <div className="user-logo">
-
+                        <img src={this.props.avatar} alt={this.props.username}/>
                     </div>
                     <h4 className="top-bar-user-name">{this.props.username}</h4>
                 </div>

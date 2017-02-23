@@ -14,7 +14,8 @@ class MainPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: ''
+            username: '',
+            avatar: ''
         }
     }
 
@@ -37,9 +38,10 @@ class MainPage extends React.Component {
                 Authorization: 'Token ' + localStorage.token
             }
         }).then(function (response) {
-            response.text().then(function (data) {
+            response.json().then(function (data) {
                 self.setState({
-                    username: data
+                    username: data.username,
+                    avatar: data.avatar
                 })
             })
         })
@@ -50,7 +52,7 @@ class MainPage extends React.Component {
             <div className="main-page">
                 <SideBar/>
                 <main className="main-wrapper">
-                    <TopBar username={this.state.username}/>
+                    <TopBar username={this.state.username} avatar={this.state.avatar}/>
                     <Router history={hashHistory}>
                         <Route path="/" component={FeedPage}/>
                         <Route path="/app" component={AppPage}/>

@@ -15,21 +15,21 @@ class NewsPage extends React.Component {
                 <SubSideBar
                     headline="新闻管理"
                 >
-                    <a href="#/news/published-news-page" className="sub-side-bar-menu-item">
+                    <a href="#/news/published-news" className="sub-side-bar-menu-item">
                         已发表文章
                     </a>
-                    <a href="#/news/pending-news-page" className="sub-side-bar-menu-item">
+                    <a href="#/news/pending-news" className="sub-side-bar-menu-item">
                         待审核文章
                     </a>
-                    <a href="#/news/create-news-page" className="sub-side-bar-menu-item">
+                    <a href="#/news/create-news" className="sub-side-bar-menu-item">
                         新建文章
                     </a>
                 </SubSideBar>
                 <div className="page-content">
                     <Router history={hashHistory}>
-                        <Route path="/news/published-news-page" component={PublishedNewsPage}/>
-                        <Route path="/news/pending-news-page" component={PendingNewsPage}/>
-                        <Route path="/news/create-news-page" component={CreateNewsPage}/>
+                        <Route path="/news/published-news" component={PublishedNewsPage}/>
+                        <Route path="/news/pending-news" component={PendingNewsPage}/>
+                        <Route path="/news/create-news" component={CreateNewsPage}/>
                         <Route path="/news/edit-news/:id" component={CreateNewsPage}/>
                     </Router>
                 </div>
