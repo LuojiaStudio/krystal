@@ -41,7 +41,10 @@ class MainPage extends React.Component {
             response.json().then(function (data) {
                 self.setState({
                     username: data.username,
-                    avatar: data.avatar
+                    avatar: data.avatar,
+                    wechat: data.wechat,
+                    qq: data.qq,
+                    birthday: data.birthday
                 })
             })
         })
