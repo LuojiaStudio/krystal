@@ -8,6 +8,7 @@ body, html, #root, .App {
 
 a {
   text-decoration: none;
+  cursor: pointer;
 }
 
 * {
@@ -26,9 +27,16 @@ h1, h2, h3, h4, h5, h6 {
 .login-header {
   width: 100%;
   height: 100px;
-  background: #cccccc;
+  background: #ffffff;
   display: flex;
   justify-content: space-around;
+  box-shadow: 0 3px 3px #eeeeee;
+}
+
+@media (max-width: 600px) {
+  .login-header-action-wrapper {
+    display: none;
+  }
 }
 
 .login-header-logo {
@@ -36,16 +44,16 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 100px;
   font-size: 20px;
   font-weight: 300;
+  color: #666;
 }
 
 .login-header-action-wrapper a {
   display: inline-block;
   width: 100px;
   height: 100px;
-  background: #aaaaaa;
   line-height: 100px;
   text-align: center;
-  color: #000;
+  color: #666;
 }
 
 .login-content-container {
@@ -58,8 +66,10 @@ h1, h2, h3, h4, h5, h6 {
 .login-card {
   position: relative;
   width: 350px;
-  height: 500px;
-  background: #cccccc;
+  height: 350px;
+  background: #ffffff;
+  border-radius: 15px;
+
 }
 
 .login-card-header {
@@ -80,13 +90,13 @@ h1, h2, h3, h4, h5, h6 {
   color: black;
 }
 
-.login-input{
+.login-input[type=text], .login-input[type=password] {
   display: block;
-  width: 280px;
-  height: 60px;
+  width: 85%;
+  height: 40px;
   margin: 20px auto;
   padding: 10px;
-  font-size: 16px;
+  font-size: 14px;
   border: 1px solid #aaaaaa;
   outline: 0;
   transition: all 0.2s;
@@ -98,13 +108,14 @@ h1, h2, h3, h4, h5, h6 {
 
 .login-btn {
   display: block;
-  width: 280px;
+  width: 85%;
   height: 40px;
   background: #283593;
   text-align: center;
   line-height: 40px;
   color: white;
   margin: 0 auto;
+  border-radius: 5px;
 }
 
 .login-btn:hover {
@@ -155,6 +166,11 @@ h1, h2, h3, h4, h5, h6 {
   width: 200px;
   height: 100%;
   background: #2D323E;
+  transition: all .3s;
+}
+
+.side-bar-content {
+  width: 200px;
 }
 
 .side-logo-wrapper {
@@ -206,7 +222,7 @@ h1, h2, h3, h4, h5, h6 {
 .top-bar {
   width: 100%;
   height: 64px;
-  background: #aaaaaa;
+  background: #dddddd;
   display: flex;
   flex-direction: row-reverse;
 }
@@ -510,6 +526,81 @@ td {
      }
 }
 
+/*feed page*/
+.feed-content {
+  display: flex;
+  padding-top: 50px;
+}
+
+.feed-content > section {
+  width: 400px;
+  height: 300px;
+  border: 1px solid #dddddd;
+  margin-right: 20px;
+}
+
+.feed-content > section > h5 {
+  font-size: 14px;
+  line-height: 30px;
+  color: #666;
+}
+
+.snackbar {
+  position: fixed;
+  bottom: -50px;
+  left: 50%;
+  margin-left: -150px;
+  width: 300px;
+  height: 50px;
+  background: #333;
+  color: #dddddd;
+  padding: 0 20px;
+}
+
+.snackbar-content {
+  line-height: 50px;
+  font-size: 14px;
+}
+
+.snackbar-close {
+  animation: close .5s;
+  animation-fill-mode: forwards;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  margin-left: -150px;
+  width: 300px;
+  height: 50px;
+  background: #333;
+  color: #dddddd;
+  padding: 0 20px;
+}
+
+.snackbar-open {
+  animation: open1 .5s;
+  animation-fill-mode: forwards;
+  position: fixed;
+  bottom: -50px;
+  left: 50%;
+  margin-left: -150px;
+  width: 300px;
+  height: 50px;
+  background: #333;
+  color: #dddddd;
+  padding: 0 20px;
+}
+
+@keyframes close {
+  to {
+    transform: translateY(50px);
+  }
+}
+
+@keyframes open1 {
+  to {
+    transform: translateY(-50px);
+  }
+}
 
 
 

@@ -4,7 +4,7 @@ import LoginPage from './login/LoginPage';
 import MainPage from './pages/MainPage';
 import './App.css';
 
-window.the_url = 'http://127.0.0.1:8000/';
+window.api_url = 'https://api.whusu.org/';
 
 class App extends Component {
 

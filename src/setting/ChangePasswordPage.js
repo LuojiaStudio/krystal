@@ -27,7 +27,7 @@ export default class ChangePasswordPage extends React.Component {
 
     changePassword() {
         let self = this;
-        fetch("http://127.0.0.1:8000/user/change_pwd/", {
+        fetch(window.api_url + "user/change_pwd/", {
             method: "POST",
             headers: {
                 'Authorization': 'Token ' + localStorage.token,
@@ -42,7 +42,7 @@ export default class ChangePasswordPage extends React.Component {
     render() {
         return (
             <main className="change-password-page">
-                <h2 className="main-page-headline">个人设置</h2>
+                <h2 className="main-page-headline">修改密码</h2>
                 <form name="change_pwd">
                     <div className="form-item">
                         <label htmlFor="">新密码</label>

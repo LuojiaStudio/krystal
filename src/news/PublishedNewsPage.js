@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import Loading from '../components/Loading';
+import SnackBar from '../components/SnackBar';
 
 class PublishedNewsPage extends React.Component {
     constructor(props) {
@@ -28,7 +29,7 @@ class PublishedNewsPage extends React.Component {
     getPublishedNews() {
         this.loading();
         let self = this;
-        fetch("http://127.0.0.1:8000/news/article/").then(function (response) {
+        fetch(window.api_url + "news/article/?is_checked=true").then(function (response) {
            response.json().then(function (data) {
                self.setState({
                    news_arr: data.results,
@@ -42,7 +43,7 @@ class PublishedNewsPage extends React.Component {
 
     getTags() {
         let self = this;
-        fetch(window.the_url +"news/tag/").then(function (response) {
+        fetch(window.api_url +"news/tag/").then(function (response) {
             response.json().then(function (data) {
                 let tag_list = [];
                 for (let i = 0; i < data.results.length; i++) {
@@ -87,7 +88,7 @@ class PublishedNewsPage extends React.Component {
 
     handleDelete(e) {
         let self = this;
-        fetch( window.the_url + "news/article/" + e.target.dataset.id + "/", {
+        fetch( window.api_url + "news/article/" + e.target.dataset.id + "/", {
             method: "DELETE",
         }).then(function (response) {
             console.log(response.status);
@@ -139,7 +140,9 @@ class PublishedNewsPage extends React.Component {
                 </table>
                 <button className="btn" onClick={this.getPreviousPge}>上一页</button>
                 <button className="btn" onClick={this.getNextPage}>下一页</button>
-                <Loading open={this.state.loading}/>
+                <Loading
+                    open={this.state.loading}
+                />
             </main>
         )
     }

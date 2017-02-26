@@ -29,7 +29,7 @@ class NewsPanel extends React.Component {
 
     componentDidMount() {
         let editor = new window.wangEditor('js_editor');
-        editor.config.uploadImgUrl = window.the_url + 'file/up/';
+        editor.config.uploadImgUrl = window.api_url + 'file/up/';
         editor.create();
 
         window.editor = editor;
@@ -42,7 +42,7 @@ class NewsPanel extends React.Component {
     setNewsInitialData() {
         let self = this;
         if (this.props.params.id) {
-            fetch(window.the_url +"news/article/" + this.props.params.id + "/").then(function (response) {
+            fetch(window.api_url +"news/article/" + this.props.params.id + "/").then(function (response) {
                 response.json().then(function (data) {
                     console.log(data);
                     self.setState({
@@ -74,7 +74,7 @@ class NewsPanel extends React.Component {
 
     getTagsList() {
         let self = this;
-        fetch(window.the_url +"news/tag/").then(function (response) {
+        fetch(window.api_url +"news/tag/").then(function (response) {
             response.json().then(function (data) {
                 self.setState({
                     tags_list: data.results
@@ -101,7 +101,7 @@ class NewsPanel extends React.Component {
         let file = document.getElementById('for_cover').files[0];
         formData.append('wangEditorH5File', file, file.name);
 
-        fetch("http://127.0.0.1:8000/file/up/", {
+        fetch(window.api_url +"file/up/", {
             method: "POST",
             body: formData
         }).then(function (response) {
@@ -152,21 +152,22 @@ class NewsPanel extends React.Component {
         let url = '';
         let method = '';
         if (this.state.is_editing) {
-            url = window.the_url + "news/article/" + this.props.params.id + "/";
+            url = window.api_url + "news/article/" + this.props.params.id + "/";
             method = "PUT"
         }
         else {
-            url = window.the_url + "news/article/";
+            url = window.api_url + "news/article/";
             method = "POST"
         }
         fetch(url, {
             method: method,
             headers: {
+                'Authorization': 'Token ' + localStorage.token,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(article_payload)
         }).then(function (response) {
-            console.log(response)
+            console.log(response);
         })
     }
 
@@ -175,7 +176,7 @@ class NewsPanel extends React.Component {
         return (
             <main className="new-news-page">
                 <h2 className="main-page-headline">新建文章</h2>
-                <form>
+                <form id="article_form">
                     <div className="form-item">
                         <label htmlFor="for_title">标题：</label>
                         <input

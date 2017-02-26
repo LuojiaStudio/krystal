@@ -31,7 +31,7 @@ export default class ProfilePage extends React.Component {
 
     getUserProfile() {
         let self = this;
-        fetch("http://127.0.0.1:8000/user/profile/", {
+        fetch(window.api_url + "user/profile/", {
             method: 'GET',
             headers: {
                 Authorization: 'Token ' + localStorage.token
@@ -58,7 +58,7 @@ export default class ProfilePage extends React.Component {
     PutUserProfile() {
         let self = this;
 
-        fetch("http://127.0.0.1:8000/user/profile/", {
+        fetch(window.api_url + "user/profile/", {
             method: 'PUT',
             headers: {
                 'Authorization': 'Token ' + localStorage.token,

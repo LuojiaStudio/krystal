@@ -32,15 +32,16 @@ class MainPage extends React.Component {
 
     getUserProfile() {
         let self = this;
-        fetch("http://127.0.0.1:8000/user/profile/", {
+        fetch(window.api_url + "user/profile/", {
             method: 'GET',
             headers: {
-                Authorization: 'Token ' + localStorage.token
+                'Authorization': 'Token ' + localStorage.token
             }
         }).then(function (response) {
             response.json().then(function (data) {
                 self.setState({
                     username: data.username,
+                    name: data.name,
                     avatar: data.avatar,
                     wechat: data.wechat,
                     qq: data.qq,
@@ -55,7 +56,7 @@ class MainPage extends React.Component {
             <div className="main-page">
                 <SideBar/>
                 <main className="main-wrapper">
-                    <TopBar username={this.state.username} avatar={this.state.avatar}/>
+                    <TopBar username={this.state.name} avatar={this.state.avatar}/>
                     <Router history={hashHistory}>
                         <Route path="/" component={FeedPage}/>
                         <Route path="/app" component={AppPage}/>

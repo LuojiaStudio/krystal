@@ -18,13 +18,29 @@ class PendingNewsPage extends React.Component {
     }
 
     componentWillMount() {
+        this.checkPermission();
         this.getTags();
         this.getPublishedNews();
     }
 
+    checkPermission() {
+        fetch(window.api_url + "user/has_perm/?perm=news_management.can_check_article", {
+            headers: {
+                'Authorization': 'Token ' + localStorage.token,
+            },
+        }).then(function (response) {
+            response.json().then(function (data) {
+                if (data.result === false) {
+                    alert('无权限');
+                    window.location = "#/"
+                }
+            })
+        })
+    }
+
     getPublishedNews() {
         let self = this;
-        fetch("//127.0.0.1:8000/news/article/?is_checked=false").then(function (response) {
+        fetch(window.api_url + "news/article/?is_checked=false").then(function (response) {
             response.json().then(function (data) {
                 self.setState({
                     news_arr: data.results,
@@ -37,7 +53,7 @@ class PendingNewsPage extends React.Component {
 
     getTags() {
         let self = this;
-        fetch(window.the_url +"news/tag/").then(function (response) {
+        fetch(window.api_url +"news/tag/").then(function (response) {
             response.json().then(function (data) {
                 let tag_list = [];
                 for (let i = 0; i < data.results.length; i++) {
@@ -78,7 +94,7 @@ class PendingNewsPage extends React.Component {
 
     handleDelete(e) {
         let self = this;
-        fetch( window.the_url + "news/article/" + e.target.dataset.id + "/", {
+        fetch( window.api_url + "news/article/" + e.target.dataset.id + "/", {
             method: "DELETE",
         }).then(function (response) {
             console.log(response.status);

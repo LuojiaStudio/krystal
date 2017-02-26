@@ -14,7 +14,7 @@ class FeedPage extends React.Component {
     render() {
         return (
             <main className="page-wrapper">
-                <main className="page-content">
+                <main className="page-content feed-content">
                     <section>
                         <h5>通知公告</h5>
                     </section>

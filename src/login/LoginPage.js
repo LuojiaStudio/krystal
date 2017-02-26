@@ -2,13 +2,15 @@
  * Created by Jsceoz on 2017/2/10.
  */
 import React from 'react';
+import SnackBar from '../components/SnackBar';
 
 class LoginPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             login_token: '',
-            password: ''
+            password: '',
+            open: false
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -20,8 +22,11 @@ class LoginPage extends React.Component {
             login_token: this.state.login_token,
             password: this.state.password
         };
-
-        fetch("http://127.0.0.1:8000/user/login/", {
+        let self = this;
+        self.setState({
+            open: true
+        });
+        fetch(window.api_url + "user/login/", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -57,7 +62,7 @@ class LoginPage extends React.Component {
             <div className="login-page">
                 <header className="login-header">
                     <div className="login-header-logo">
-                        武汉大学学生会系统协同办公平台
+                        武汉大学学生会办公自动化系统
                     </div>
                     <div className="login-header-action-wrapper">
                         <a href="#">帮助</a>
@@ -68,10 +73,6 @@ class LoginPage extends React.Component {
 
                     </div>
                     <div className="login-card">
-                        <div className="login-card-header">
-                            <a href="">登录</a>
-                            <a href="">新用户</a>
-                        </div>
                         <input
                             name="login_token"
                             type="text"
@@ -90,14 +91,18 @@ class LoginPage extends React.Component {
                             className="login-btn"
                             onClick={this.login}
                         >登录</a>
-                        <div className="login-card-bottom-action">
-                            <a href="#">忘记密码</a> | <a href="#">意见反馈</a>
-                        </div>
                     </div>
                 </main>
                 <footer>
                     © 2017 武汉大学学生会
                 </footer>
+                <button onClick={() => this.setState({open: !this.state.open})}>开</button>
+                <SnackBar
+                    open={this.state.open}
+                    autoHiddenTime={1000}
+                    message={"登录中"}
+                />
+
             </div>
         )
     }
