@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Router, Route, hashHistory } from 'react-router';
 import LoginPage from './login/LoginPage';
 import MainPage from './pages/MainPage';
-import './App.css';
+//import './App.css';
+import 'antd/dist/antd.css'
 
 window.api_url = 'https://api.whusu.org/';
 

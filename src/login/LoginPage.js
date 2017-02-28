@@ -3,6 +3,9 @@
  */
 import React from 'react';
 import SnackBar from '../components/SnackBar';
+import { Layout, Form, Icon, Input, Button, Checkbox } from 'antd';
+const { Header, Footer, Content } = Layout;
+const FormItem = Form.Item;
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -10,7 +13,8 @@ class LoginPage extends React.Component {
         this.state = {
             login_token: '',
             password: '',
-            open: false
+            open: false,
+            message: '',
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -24,7 +28,8 @@ class LoginPage extends React.Component {
         };
         let self = this;
         self.setState({
-            open: true
+            open: true,
+            message: "登录中"
         });
         fetch(window.api_url + "user/login/", {
             method: "POST",
@@ -35,7 +40,9 @@ class LoginPage extends React.Component {
         }).then(function (response) {
             console.log(response);
             if (response.status != 202) {
-                return
+                self.setState({
+                    message: "用户名或密码错误"
+                });
             }
             else {
                 response.json().then(function (data) {
@@ -61,46 +68,34 @@ class LoginPage extends React.Component {
         return (
             <div className="login-page">
                 <header className="login-header">
-                    <div className="login-header-logo">
+                    <span className="login-header-logo">
                         武汉大学学生会办公自动化系统
-                    </div>
-                    <div className="login-header-action-wrapper">
+                    </span>
+                    <span className="login-header-action-wrapper">
                         <a href="#">帮助</a>
-                    </div>
+                    </span>
                 </header>
                 <main className="login-content-container">
-                    <div className="login-content">
-
-                    </div>
-                    <div className="login-card">
-                        <input
-                            name="login_token"
-                            type="text"
-                            className="login-input"
-                            placeholder="支持学号/姓名/邮箱登录"
-                            onChange={this.handleInputChange}
-                        />
-                        <input
-                            name="password"
-                            type="password"
-                            className="login-input"
-                            placeholder="办公系统密码"
-                            onChange={this.handleInputChange}
-                        />
-                        <a
-                            className="login-btn"
-                            onClick={this.login}
-                        >登录</a>
-                    </div>
+                    <Form className="login-form">
+                        <FormItem>
+                            <Input addonBefore={<Icon type="user" />} placeholder="学号/用户名/邮箱" />
+                        </FormItem>
+                        <FormItem>
+                            <Input addonBefore={<Icon type="lock" />} type="password" placeholder="办公系统密码" />
+                        </FormItem>
+                        <FormItem>
+                            <Button type="primary" htmlType="submit" className="login-form-button">
+                                登录
+                            </Button>
+                        </FormItem>
+                    </Form>
                 </main>
-                <footer>
+                <footer className="login-footer">
                     © 2017 武汉大学学生会
                 </footer>
-                <button onClick={() => this.setState({open: !this.state.open})}>开</button>
                 <SnackBar
                     open={this.state.open}
-                    autoHiddenTime={1000}
-                    message={"登录中"}
+                    message={this.state.message}
                 />
 
             </div>
